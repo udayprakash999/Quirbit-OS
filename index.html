@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quirbit OS -A quirky, innovative system.</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <video autoplay muted loop>
+      <source src="background-cover.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+
+    <pre id="boot-screen">
+      Starting up Quirbit OS...
+      Loading essential services..
+      System ready, enjoy your experience! 
+    
+    </pre>
+
+    <div class="all" id="mainContent" style="display: none">
+      <div class="admin-box draggable" id="adminWindow">
+        <div id="adminHeader" class="admin-header draggable-header">
+          Administrator
+          <button style="cursor: pointer" id="adminClose">X</button>
+        </div>
+        <div class="admin-content">
+          <div class="user-info">
+            <img src="images/boy.png" alt="" class="admin-avatar" />
+
+            <h3>
+              Uday Prakash Gupta
+            </h3>
+          </div>
+            <div class="info-about">
+              <p>I'm just a 15 yr old From India</p> <br>
+              <p>
+                Building intuitive and responsive user interfaces with HTML,
+                CSS, and JavaScript. 💻
+              </p>
+            
+          </div>
+        </div>
+      </div>
+
+      <div class="webapps" id="webapps">
+        <button
+          id="openStickyNotes"
+          style="
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+          "
+        >
+          <img src="apps-images/notes.png" width="55px" /> Sticky Notes
+        </button>
+        <div class="sticky-notes-popup modal draggable" id="stickyNotesModal">
+          <div id="stickyHeader" class="draggable-header">
+            <h3>
+              <img src="apps-images/notes.png" width="30px" />Sticky Notes
+            </h3>
+            <button id="closeStickyNotes">X</button>
+          </div>
+          <div class="notes-container" id="notesContainer">
+            <button id="addNoteBtn" class="add-note">Add Note</button>
+          </div>
+        </div>
+
+        <div class="calculator-popup modal draggable" id="calculatorModal">
+          <div id="calculatorHeader" class="draggable-header">
+            <h3>
+              <img src="apps-images/calculator.png" width="30px" /> Calculator
+            </h3>
+            <button id="closeCalculator">X</button>
+          </div>
+          <div class="calculator-container">
+            <input type="text" id="calcDisplay" readonly />
+            <div class="calc-buttons">
+              <button class="calc-btn">7</button>
+              <button class="calc-btn">8</button>
+              <button class="calc-btn">9</button>
+              <button class="calc-btn">/</button>
+              <button class="calc-btn">4</button>
+              <button class="calc-btn">5</button>
+              <button class="calc-btn">6</button>
+              <button class="calc-btn">*</button>
+              <button class="calc-btn">1</button>
+              <button class="calc-btn">2</button>
+              <button class="calc-btn">3</button>
+              <button class="calc-btn">-</button>
+              <button class="calc-btn">0</button>
+              <button class="calc-btn">.</button>
+              <button class="calc-btn" id="calcEquals">=</button>
+              <button class="calc-btn">+</button>
+              <button class="calc-btn" id="calcClear">C</button>
+            </div>
+          </div>
+        </div>
+        <button
+          id="openCalculator"
+          style="
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+          "
+        >
+          <img src="apps-images/calculator.png" width="55px" />Calculator
+        </button>
+
+        <div class="game-popup modal draggable" id="game2048Modal">
+          <div id="gameHeader" class="draggable-header">
+            <h3><img src="apps-images/blocks.png" width="30px" /> 2048 Game</h3>
+            <button id="closeGame2048">X</button>
+          </div>
+          <div class="game-container">
+            <div class="game-board" id="gameBoard"></div>
+            <button id="restartGame">Restart</button>
+          </div>
+        </div>
+        <button
+          id="openGame2048"
+          style="
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+          "
+        >
+          <img src="apps-images/blocks.png" width="55px" />2048 Game
+        </button>
+
+        <div class="web-folder draggable modal" id="webFolder">
+          <div id="webFolderHeader" class="draggable-header">
+            <h3><img src="apps-images/folder.png" width="30px" />Web Folder</h3>
+            <button id="closeWebFolder">X</button>
+          </div>
+          <div class="folder-container">
+            <ul id="docList"></ul>
+          </div>
+        </div>
+
+        <div class="google-docs-popup modal draggable" id="googleDocsModal">
+          <div id="googleDocsHeader" class="draggable-header">
+            <h3>
+              <img src="apps-images/documents (1).png" width="30px" />QuickDoc
+            </h3>
+            <button id="closeGoogleDocs">X</button>
+          </div>
+          <div class="docs-container">
+            <h2 id="docNameDisplay"></h2>
+            <textarea
+              id="docsEditor"
+              placeholder="Type your document here..."
+            ></textarea>
+            <button id="saveDocBtn" class="save-doc">Save Document</button>
+          </div>
+        </div>
+
+        <button
+          id="openGoogleDocs"
+          style="
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+          "
+        >
+          <img src="apps-images/documents (1).png" width="55px" />QuickDoc
+        </button>
+        <button
+          id="openWebFolder"
+          style="
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+          "
+        >
+          <img src="apps-images/folder.png" width="55px" />Web Folder
+        </button>
+
+        <div class="media-player draggable modal" id="mediaPlayer">
+          <div id="mediaPlayerHeader" class="draggable-header">
+            <h3>
+              <img src="apps-images/music-notes.png" width="30px" />Jamify
+            </h3>
+            <button id="closeMediaPlayer">X</button>
+          </div>
+          <div class="media-player-content">
+            <div id="songTitle">No song selected</div>
+            <audio id="audioPlayer" controls>
+              <source id="audioSource" src="" type="audio/mp3" />
+              Your browser does not support the audio element.
+            </audio>
+            <div class="player-controls">
+              <button id="prevSongBtn">Prev</button>
+              <button id="playPauseBtn">Play</button>
+              <button id="nextSongBtn">Next</button>
+              <button id="stopBtn">Stop</button>
+            </div>
+            <input type="file" id="songUpload" accept="audio/*" multiple />
+
+            <div id="songList" class="song-list">
+              <h4>Song List:</h4>
+              <ul id="songListUl"></ul>
+            </div>
+          </div>
+        </div>
+
+        <button
+          id="openMediaPlayer"
+          style="
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+          "
+        >
+          <img src="apps-images/music-notes.png" width="55px" />Jamify
+        </button>
+
+        <div class="contact-manager-container" id="contactManager">
+          <div id="contactManagerHeader" class="draggable-header">
+            <h3>
+              <img src="apps-images/address-book.png" width="30px" />Contact
+              Manager
+            </h3>
+            <button id="closeContactManager">X</button>
+          </div>
+
+          <div class="contact-manager-content">
+            <div class="add-contact">
+              <h4>Add New Contact</h4>
+              <input type="text" id="contactName" placeholder="Name" />
+              <input type="text" id="contactPhone" placeholder="Phone Number" />
+              <input type="email" id="contactEmail" placeholder="Email" />
+              <button id="addContactBtn">Add Contact</button>
+            </div>
+
+            <div class="contact-list">
+              <h4>Contact List</h4>
+              <ul id="contactListUl"></ul>
+            </div>
+          </div>
+        </div>
+
+        <button
+          id="openContactManager"
+          style="
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+          "
+        >
+          <img src="apps-images/address-book.png" width="55px" />Contact <br />
+          Manager
+        </button>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p id="adminOpen">
+        <img
+          src="images/user.png"
+          alt=""
+          style="
+            width: 50px;
+            height: 7vh;
+            border-radius: 50%;
+            border: 2mm ridge rgba(255, 255, 255, 0.581);
+            margin: 4px;
+          "
+        />
+      </p>
+      <div class="top-bar">
+        <p id="timeos"></p>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
