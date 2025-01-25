@@ -55,7 +55,7 @@ Quirbit OS is a quirky, innovative web-based operating system that brings a desk
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/yourusername/quirbit-os.git
+   git clone https://github.com/udayprakash999/quirbit-os.git
    ```
 
 2. Navigate to the project directory:
