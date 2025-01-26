@@ -76,7 +76,14 @@ const closeStickyNotesBtn = document.getElementById("closeStickyNotes");
 const addNoteBtn = document.getElementById("addNoteBtn");
 const notesContainer = document.getElementById("notesContainer");
 
-const noteColors = ["#FFEBEE", "#E8F5E9", "#E3F2FD", "#FFF3E0", "#F3E5F5", "#E0F7FA"];
+const noteColors = [
+  "#FFEBEE",
+  "#E8F5E9",
+  "#E3F2FD",
+  "#FFF3E0",
+  "#F3E5F5",
+  "#E0F7FA",
+];
 
 function toggleModal(show) {
   stickyNotesModal.classList.toggle("active", show);
@@ -89,7 +96,8 @@ function createNote(content = "", color = "") {
   const note = document.createElement("div");
   note.classList.add("note");
 
-  const backgroundColor = color || noteColors[Math.floor(Math.random() * noteColors.length)];
+  const backgroundColor =
+    color || noteColors[Math.floor(Math.random() * noteColors.length)];
   note.style.backgroundColor = backgroundColor;
 
   note.innerHTML = `<textarea>${content}</textarea><button>Delete</button>`;
@@ -106,16 +114,20 @@ function createNote(content = "", color = "") {
 }
 
 function saveNotes() {
-  const notes = Array.from(notesContainer.querySelectorAll(".note")).map((note) => ({
-    content: note.querySelector("textarea").value,
-    color: note.style.backgroundColor,
-  }));
+  const notes = Array.from(notesContainer.querySelectorAll(".note")).map(
+    (note) => ({
+      content: note.querySelector("textarea").value,
+      color: note.style.backgroundColor,
+    })
+  );
   localStorage.setItem("stickyNotes", JSON.stringify(notes));
 }
 
 function loadNotes() {
   const savedNotes = JSON.parse(localStorage.getItem("stickyNotes") || "[]");
-  savedNotes.forEach((savedNote) => createNote(savedNote.content, savedNote.color));
+  savedNotes.forEach((savedNote) =>
+    createNote(savedNote.content, savedNote.color)
+  );
 }
 
 addNoteBtn.addEventListener("click", () => createNote());
@@ -168,7 +180,6 @@ closeCalculatorBtn.addEventListener("click", () => {
 
 makeDraggable(calculatorModal, "calculatorHeader");
 
-
 const openGame2048Btn = document.getElementById("openGame2048");
 const game2048Modal = document.getElementById("game2048Modal");
 const closeGame2048Btn = document.getElementById("closeGame2048");
@@ -194,7 +205,8 @@ function renderBoard() {
       const tileDiv = document.createElement("div");
       tileDiv.className = "tile";
       tileDiv.textContent = tile > 0 ? tile : "";
-      tileDiv.style.backgroundColor = tile > 0 ? `rgb(${240 - tile}, ${220 - tile / 2}, ${200})` : "#cdc1b4";
+      tileDiv.style.backgroundColor =
+        tile > 0 ? `rgb(${240 - tile}, ${220 - tile / 2}, ${200})` : "#cdc1b4";
       gameBoard.appendChild(tileDiv);
     });
   });
@@ -202,7 +214,9 @@ function renderBoard() {
 
 function addRandomTile() {
   const emptyTiles = [];
-  board.forEach((row, r) => row.forEach((tile, c) => tile === 0 && emptyTiles.push({ r, c })));
+  board.forEach((row, r) =>
+    row.forEach((tile, c) => tile === 0 && emptyTiles.push({ r, c }))
+  );
   if (emptyTiles.length === 0) return;
   const { r, c } = emptyTiles[Math.floor(Math.random() * emptyTiles.length)];
   board[r][c] = Math.random() < 0.9 ? 2 : 4;
@@ -213,7 +227,8 @@ function moveTiles(direction) {
 
   for (let i = 0; i < size; i++) {
     let tiles = board[i];
-    if (direction === "up" || direction === "down") tiles = board.map((row) => row[i]);
+    if (direction === "up" || direction === "down")
+      tiles = board.map((row) => row[i]);
 
     const filteredTiles = tiles.filter((tile) => tile > 0);
     for (let j = 0; j < filteredTiles.length - 1; j++) {
@@ -226,7 +241,11 @@ function moveTiles(direction) {
     const newTiles = Array(size).fill(0);
     if (direction === "right" || direction === "down") {
       filteredTiles.reverse();
-      newTiles.splice(size - filteredTiles.length, filteredTiles.length, ...filteredTiles.reverse());
+      newTiles.splice(
+        size - filteredTiles.length,
+        filteredTiles.length,
+        ...filteredTiles.reverse()
+      );
     } else {
       newTiles.splice(0, filteredTiles.length, ...filteredTiles);
     }
@@ -271,7 +290,6 @@ restartGameBtn.addEventListener("click", initBoard);
 
 makeDraggable(game2048Modal, "gameHeader");
 
-
 let tileMoved = false;
 
 function showGameOverPopup() {
@@ -294,12 +312,12 @@ function showGameOverPopup() {
 function isGameOver() {
   for (let r = 0; r < size; r++) {
     for (let c = 0; c < size; c++) {
-      if (board[r][c] === 0) return false; 
-      if (r > 0 && board[r][c] === board[r - 1][c]) return false; 
-      if (c > 0 && board[r][c] === board[r][c - 1]) return false; 
+      if (board[r][c] === 0) return false;
+      if (r > 0 && board[r][c] === board[r - 1][c]) return false;
+      if (c > 0 && board[r][c] === board[r][c - 1]) return false;
     }
   }
-  return true; 
+  return true;
 }
 
 function renderBoard() {
@@ -309,7 +327,8 @@ function renderBoard() {
       const tileDiv = document.createElement("div");
       tileDiv.className = `tile ${tileMoved ? "tile-animate" : ""}`;
       tileDiv.textContent = tile > 0 ? tile : "";
-      tileDiv.style.backgroundColor = tile > 0 ? `rgb(${240 - tile}, ${220 - tile / 2}, ${200})` : "#cdc1b4";
+      tileDiv.style.backgroundColor =
+        tile > 0 ? `rgb(${240 - tile}, ${220 - tile / 2}, ${200})` : "#cdc1b4";
       tileDiv.style.transform = `scale(${tileMoved ? 1.1 : 1})`;
       gameBoard.appendChild(tileDiv);
     });
@@ -325,7 +344,8 @@ function moveTiles(direction) {
 
   for (let i = 0; i < size; i++) {
     let tiles = board[i];
-    if (direction === "up" || direction === "down") tiles = board.map((row) => row[i]);
+    if (direction === "up" || direction === "down")
+      tiles = board.map((row) => row[i]);
 
     const filteredTiles = tiles.filter((tile) => tile > 0);
     for (let j = 0; j < filteredTiles.length - 1; j++) {
@@ -339,7 +359,11 @@ function moveTiles(direction) {
     const newTiles = Array(size).fill(0);
     if (direction === "right" || direction === "down") {
       filteredTiles.reverse();
-      newTiles.splice(size - filteredTiles.length, filteredTiles.length, ...filteredTiles.reverse());
+      newTiles.splice(
+        size - filteredTiles.length,
+        filteredTiles.length,
+        ...filteredTiles.reverse()
+      );
     } else {
       newTiles.splice(0, filteredTiles.length, ...filteredTiles);
     }
@@ -372,24 +396,30 @@ const openWebFolderBtn = document.getElementById("openWebFolder");
 const closeWebFolderBtn = document.getElementById("closeWebFolder");
 const docList = document.getElementById("docList");
 
-openGoogleDocsBtn.addEventListener("click", () => googleDocsModal.classList.add("active"));
-closeGoogleDocsBtn.addEventListener("click", () => googleDocsModal.classList.remove("active"));
+openGoogleDocsBtn.addEventListener("click", () =>
+  googleDocsModal.classList.add("active")
+);
+closeGoogleDocsBtn.addEventListener("click", () =>
+  googleDocsModal.classList.remove("active")
+);
 openWebFolderBtn.addEventListener("click", () => {
   loadFolder();
   webFolder.classList.add("active");
 });
-closeWebFolderBtn.addEventListener("click", () => webFolder.classList.remove("active"));
+closeWebFolderBtn.addEventListener("click", () =>
+  webFolder.classList.remove("active")
+);
 
 saveDocBtn.addEventListener("click", () => {
   const docContent = docsEditor.value.trim();
   if (docContent) {
     const docName = prompt("Enter a name for your document:");
     if (docName) {
-      localStorage.setItem(`app/${docName}`, docContent); 
+      localStorage.setItem(`app/${docName}`, docContent);
       alert(`Document "${docName}" saved!`);
-      docsEditor.value = ""; 
-      loadFolder(); 
-      googleDocsModal.classList.remove("active"); 
+      docsEditor.value = "";
+      loadFolder();
+      googleDocsModal.classList.remove("active");
     }
   } else {
     alert("Cannot save an empty document!");
@@ -397,7 +427,7 @@ saveDocBtn.addEventListener("click", () => {
 });
 
 function loadFolder() {
-  docList.innerHTML = ""; 
+  docList.innerHTML = "";
   for (const key in localStorage) {
     if (key.startsWith("app/")) {
       const docName = key.replace("app/", "");
@@ -413,11 +443,15 @@ function loadFolder() {
   }
 
   document.querySelectorAll(".edit-doc").forEach((button) => {
-    button.addEventListener("click", () => openDocument(button.dataset.name, true));
+    button.addEventListener("click", () =>
+      openDocument(button.dataset.name, true)
+    );
   });
 
   document.querySelectorAll(".view-doc").forEach((button) => {
-    button.addEventListener("click", () => openDocument(button.dataset.name, false));
+    button.addEventListener("click", () =>
+      openDocument(button.dataset.name, false)
+    );
   });
 
   document.querySelectorAll(".delete-doc").forEach((button) => {
@@ -429,14 +463,14 @@ function openDocument(docName, isEdit) {
   const docContent = localStorage.getItem(`app/${docName}`);
   if (docContent !== null) {
     document.getElementById("docNameDisplay").textContent = docName;
-    
+
     docsEditor.value = docContent;
     if (isEdit) {
-      docsEditor.removeAttribute("readonly"); 
+      docsEditor.removeAttribute("readonly");
       saveDocBtn.style.display = "inline-block";
     } else {
-      docsEditor.setAttribute("readonly", "true"); 
-      saveDocBtn.style.display = "none"; 
+      docsEditor.setAttribute("readonly", "true");
+      saveDocBtn.style.display = "none";
     }
     googleDocsModal.classList.add("active");
   } else {
@@ -448,7 +482,7 @@ function deleteDocument(docName) {
   if (confirm(`Are you sure you want to delete "${docName}"?`)) {
     localStorage.removeItem(`app/${docName}`);
     alert(`Document "${docName}" deleted.`);
-    loadFolder(); 
+    loadFolder();
   }
 }
 
@@ -469,13 +503,23 @@ const songUpload = document.getElementById("songUpload");
 const songListUl = document.getElementById("songListUl");
 
 let songList = [
-  { name: "Juice Wrld - Lucid Dreams", url: "media-player-song/Juice_Wrld_-_Lucid_Dreams.mp3" },  
-  { name: "Juice Wrld - Stay High", url: "media-player-song/Juice_Wrld_-_Stay_High.mp3" }  
+  {
+    name: "Juice Wrld - Lucid Dreams",
+    url: "media-player-song/Juice_Wrld_-_Lucid_Dreams.mp3",
+  },
+  {
+    name: "Juice Wrld - Stay High",
+    url: "media-player-song/Juice_Wrld_-_Stay_High.mp3",
+  },
 ];
-let currentSongIndex = 0; 
+let currentSongIndex = 0;
 
-openMediaPlayerBtn.addEventListener("click", () => mediaPlayer.classList.add("active"));
-closeMediaPlayerBtn.addEventListener("click", () => mediaPlayer.classList.remove("active"));
+openMediaPlayerBtn.addEventListener("click", () =>
+  mediaPlayer.classList.add("active")
+);
+closeMediaPlayerBtn.addEventListener("click", () =>
+  mediaPlayer.classList.remove("active")
+);
 
 songUpload.addEventListener("change", (e) => {
   const files = e.target.files;
@@ -492,20 +536,20 @@ songUpload.addEventListener("change", (e) => {
 });
 
 function updateSongList() {
-  songListUl.innerHTML = ''; 
+  songListUl.innerHTML = "";
   songList.forEach((song, index) => {
-    const li = document.createElement('li');
+    const li = document.createElement("li");
     li.textContent = song.name;
 
-    const deleteBtn = document.createElement('button');
+    const deleteBtn = document.createElement("button");
     deleteBtn.textContent = "Delete";
     deleteBtn.addEventListener("click", () => {
       songList.splice(index, 1);
-      updateSongList(); 
+      updateSongList();
       if (currentSongIndex >= songList.length) {
         currentSongIndex = songList.length - 1;
       }
-      loadSong(currentSongIndex); 
+      loadSong(currentSongIndex);
     });
 
     li.appendChild(deleteBtn);
@@ -561,7 +605,7 @@ function loadSong(index) {
 
 makeDraggable(mediaPlayer, "mediaPlayerHeader");
 
-window.addEventListener('load', () => {
+window.addEventListener("load", () => {
   if (songList.length > 0) {
     loadSong(currentSongIndex);
     updateSongList();
@@ -581,8 +625,12 @@ function toggleContactManager(show) {
   contactManager.classList.toggle("active", show);
 }
 
-openContactManagerBtn.addEventListener("click", () => toggleContactManager(true));
-closeContactManagerBtn.addEventListener("click", () => toggleContactManager(false));
+openContactManagerBtn.addEventListener("click", () =>
+  toggleContactManager(true)
+);
+closeContactManagerBtn.addEventListener("click", () =>
+  toggleContactManager(false)
+);
 
 function addContact() {
   const name = contactNameInput.value.trim();
@@ -597,7 +645,7 @@ function addContact() {
       ${email}
       <button class="delete-contact">Delete</button>
     `;
-    
+
     const deleteBtn = contactItem.querySelector(".delete-contact");
     deleteBtn.addEventListener("click", () => {
       contactItem.remove();
@@ -606,7 +654,7 @@ function addContact() {
 
     contactListUl.appendChild(contactItem);
     saveContacts();
-    
+
     contactNameInput.value = "";
     contactPhoneInput.value = "";
     contactEmailInput.value = "";
@@ -615,10 +663,14 @@ function addContact() {
 
 function saveContacts() {
   const contacts = [];
-  contactListUl.querySelectorAll("li").forEach(contact => {
+  contactListUl.querySelectorAll("li").forEach((contact) => {
     const name = contact.querySelector("strong").textContent;
-    const phone = contact.querySelector("br:nth-of-type(1)").nextSibling.textContent.trim();
-    const email = contact.querySelector("br:nth-of-type(2)").nextSibling.textContent.trim();
+    const phone = contact
+      .querySelector("br:nth-of-type(1)")
+      .nextSibling.textContent.trim();
+    const email = contact
+      .querySelector("br:nth-of-type(2)")
+      .nextSibling.textContent.trim();
     contacts.push({ name, phone, email });
   });
   localStorage.setItem("contacts", JSON.stringify(contacts));
@@ -626,7 +678,7 @@ function saveContacts() {
 
 function loadContacts() {
   const savedContacts = JSON.parse(localStorage.getItem("contacts") || "[]");
-  savedContacts.forEach(contact => {
+  savedContacts.forEach((contact) => {
     const contactItem = document.createElement("li");
     contactItem.innerHTML = `
       <strong>${contact.name}</strong><br/>
@@ -634,7 +686,7 @@ function loadContacts() {
       ${contact.email}
       <button class="delete-contact">Delete</button>
     `;
-    
+
     const deleteBtn = contactItem.querySelector(".delete-contact");
     deleteBtn.addEventListener("click", () => {
       contactItem.remove();
@@ -651,7 +703,10 @@ window.addEventListener("load", loadContacts);
 
 function makeDraggable(elmnt, headerId) {
   const header = headerId ? document.getElementById(headerId) : elmnt;
-  let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+  let pos1 = 0,
+    pos2 = 0,
+    pos3 = 0,
+    pos4 = 0;
 
   header.onmousedown = function (e) {
     e.preventDefault();
@@ -679,5 +734,319 @@ function makeDraggable(elmnt, headerId) {
 
 makeDraggable(contactManager, "contactManagerHeader");
 
+document.addEventListener("DOMContentLoaded", () => {
+  const pongGameModal = document.getElementById("pongGameModal");
+  const openPongGameButton = document.getElementById("openPongGame");
+  const closePongGameButton = document.getElementById("closePongGame");
 
+  openPongGameButton.addEventListener("click", () => {
+    pongGameModal.style.display = "block";
+  });
 
+  closePongGameButton.addEventListener("click", () => {
+    pongGameModal.style.display = "none";
+  });
+
+  const canvas = document.getElementById("pongCanvas");
+  const ctx = canvas.getContext("2d");
+
+  let ball = {
+    x: canvas.width / 2,
+    y: canvas.height / 2,
+    radius: 10,
+    dx: 3,
+    dy: 3,
+  };
+
+  let paddle1 = {
+    x: 10,
+    y: canvas.height / 2 - 40,
+    width: 10,
+    height: 80,
+    dy: 0,
+  };
+
+  let paddle2 = {
+    x: canvas.width - 20,
+    y: canvas.height / 2 - 40,
+    width: 10,
+    height: 80,
+    dy: 0,
+  };
+
+  let score1 = 0;
+  let score2 = 0;
+
+  let keys = {};
+
+  window.addEventListener("keydown", (e) => {
+    keys[e.key] = true;
+  });
+
+  window.addEventListener("keyup", (e) => {
+    keys[e.key] = false;
+  });
+
+  function drawBall() {
+    ctx.beginPath();
+    ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
+    ctx.fillStyle = "white";
+    ctx.fill();
+    ctx.closePath();
+  }
+
+  function drawPaddle(paddle) {
+    ctx.fillStyle = "white";
+    ctx.fillRect(paddle.x, paddle.y, paddle.width, paddle.height);
+  }
+
+  function movePaddles() {
+    if (keys["w"] && paddle1.y > 0) {
+      paddle1.dy = -4;
+    } else if (keys["s"] && paddle1.y + paddle1.height < canvas.height) {
+      paddle1.dy = 4;
+    } else {
+      paddle1.dy = 0;
+    }
+
+    if (keys["ArrowUp"] && paddle2.y > 0) {
+      paddle2.dy = -4;
+    } else if (
+      keys["ArrowDown"] &&
+      paddle2.y + paddle2.height < canvas.height
+    ) {
+      paddle2.dy = 4;
+    } else {
+      paddle2.dy = 0;
+    }
+
+    paddle1.y += paddle1.dy;
+    paddle2.y += paddle2.dy;
+  }
+
+  function moveBall() {
+    ball.x += ball.dx;
+    ball.y += ball.dy;
+
+    if (ball.y + ball.radius > canvas.height || ball.y - ball.radius < 0) {
+      ball.dy *= -1;
+    }
+
+    if (
+      ball.x - ball.radius < paddle1.x + paddle1.width &&
+      ball.y > paddle1.y &&
+      ball.y < paddle1.y + paddle1.height
+    ) {
+      ball.dx *= -1;
+    }
+
+    if (
+      ball.x + ball.radius > paddle2.x &&
+      ball.y > paddle2.y &&
+      ball.y < paddle2.y + paddle2.height
+    ) {
+      ball.dx *= -1;
+    }
+
+    if (ball.x - ball.radius < 0) {
+      score2 += 1;
+      resetBall();
+    }
+
+    if (ball.x + ball.radius > canvas.width) {
+      score1 += 1;
+      resetBall();
+    }
+  }
+
+  function resetBall() {
+    ball.x = canvas.width / 2;
+    ball.y = canvas.height / 2;
+    ball.dx = -ball.dx;
+  }
+
+  function updateScore() {
+    const scoreDisplay = document.getElementById("scoreDisplay");
+    scoreDisplay.textContent = `Player 1: ${score1} | Player 2: ${score2}`;
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawBall();
+    drawPaddle(paddle1);
+    drawPaddle(paddle2);
+    movePaddles();
+    moveBall();
+    updateScore();
+  }
+
+  setInterval(draw, 16);
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const activeAppDisplay = document.getElementById("activeApp");
+  const activeApps = [];
+
+  const appButtons = {
+    openCalculator: "Calculator",
+    closeCalculator: "Calculator",
+    openStickyNotes: "Sticky Notes",
+    closeStickyNotes: "Sticky Notes",
+    openGame2048: "2048 Game",
+    closeGame2048: "2048 Game",
+    openGoogleDocs: "QuickDoc",
+    closeGoogleDocs: "QuickDoc",
+    openMediaPlayer: "Jamify",
+    closeMediaPlayer: "Jamify",
+    openWebFolder: "Web Folder",
+    closeWebFolder: "Web Folder",
+    openContactManager: "Contact Manager",
+    closeContactManager: "Contact Manager",
+    openPongGame: "Pong Game",
+    closePongGame: "Pong Game",
+    openPhotoApp: "Photo Gallery",
+    closePhotoApp: "Photo Gallery",
+  };
+
+  function updateActiveAppDisplay() {
+    if (activeApps.length === 0) {
+      activeAppDisplay.textContent = "No app opened";
+    } else {
+      activeAppDisplay.textContent = `Active App: ${
+        activeApps[activeApps.length - 1]
+      }`;
+    }
+  }
+
+  function openApp(appName) {
+    if (!activeApps.includes(appName)) {
+      activeApps.push(appName);
+    }
+    updateActiveAppDisplay();
+  }
+
+  function closeApp(appName) {
+    const index = activeApps.indexOf(appName);
+    if (index !== -1) {
+      activeApps.splice(index, 1);
+    }
+    updateActiveAppDisplay();
+  }
+
+  for (const [buttonId, appName] of Object.entries(appButtons)) {
+    const button = document.getElementById(buttonId);
+    if (button) {
+      if (buttonId.startsWith("open")) {
+        button.addEventListener("click", () => {
+          openApp(appName);
+          document.getElementById(
+            appName.toLowerCase() + "Modal"
+          ).style.display = "block";
+        });
+      } else if (buttonId.startsWith("close")) {
+        button.addEventListener("click", () => {
+          closeApp(appName);
+          document.getElementById(
+            appName.toLowerCase() + "Modal"
+          ).style.display = "none";
+        });
+      }
+    }
+  }
+
+  updateActiveAppDisplay();
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const photoAppModal = document.getElementById("photoAppModal");
+  const openPhotoApp = document.getElementById("openPhotoApp");
+  const closePhotoApp = document.getElementById("closePhotoApp");
+
+  const photoList = document.getElementById("photoList");
+  const uploadPhotoInput = document.getElementById("uploadPhotoInput");
+  const uploadPhotoBtn = document.getElementById("uploadPhotoBtn");
+
+  const photoViewerPopup = document.getElementById("photoViewerPopup");
+  const closePhotoViewerPopup = document.getElementById(
+    "closePhotoViewerPopup"
+  );
+  const largePhoto = document.getElementById("largePhoto");
+
+  openPhotoApp.addEventListener("click", () => {
+    photoAppModal.style.display = "block";
+  });
+
+  closePhotoApp.addEventListener("click", () => {
+    photoAppModal.style.display = "none";
+  });
+
+  uploadPhotoBtn.addEventListener("click", () => {
+    const files = uploadPhotoInput.files;
+    if (files.length > 0) {
+      Array.from(files).forEach((file) => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const photoContainer = document.createElement("div");
+          photoContainer.classList.add("photo-thumbnail-container");
+
+          const imgElement = document.createElement("img");
+          imgElement.src = e.target.result;
+          imgElement.classList.add("photo-thumbnail");
+          imgElement.style.cursor = "pointer";
+          imgElement.draggable = true;
+
+          const deleteBtn = document.createElement("button");
+          deleteBtn.textContent = "X";
+          deleteBtn.classList.add("delete-btn");
+
+          deleteBtn.addEventListener("click", () => {
+            photoContainer.remove();
+          });
+
+          imgElement.addEventListener("click", () => {
+            largePhoto.src = e.target.result;
+            photoViewerPopup.style.display = "block";
+          });
+
+          photoContainer.appendChild(imgElement);
+          photoContainer.appendChild(deleteBtn);
+          photoList.appendChild(photoContainer);
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+  });
+
+  closePhotoViewerPopup.addEventListener("click", () => {
+    photoViewerPopup.style.display = "none";
+  });
+
+  const draggables = document.querySelectorAll(".draggable");
+  draggables.forEach((draggable) => {
+    const header = draggable.querySelector(".draggable-header");
+    if (header) {
+      let offsetX = 0,
+        offsetY = 0;
+      header.addEventListener("mousedown", (e) => {
+        offsetX = e.clientX - draggable.getBoundingClientRect().left;
+        offsetY = e.clientY - draggable.getBoundingClientRect().top;
+
+        const moveAt = (pageX, pageY) => {
+          draggable.style.left = `${pageX - offsetX}px`;
+          draggable.style.top = `${pageY - offsetY}px`;
+        };
+
+        const onMouseMove = (e) => moveAt(e.pageX, e.pageY);
+        document.addEventListener("mousemove", onMouseMove);
+
+        document.addEventListener(
+          "mouseup",
+          () => {
+            document.removeEventListener("mousemove", onMouseMove);
+          },
+          { once: true }
+        );
+      });
+    }
+  });
+});
