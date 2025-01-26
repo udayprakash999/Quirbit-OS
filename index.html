@@ -29,17 +29,15 @@
           <div class="user-info">
             <img src="images/boy.png" alt="" class="admin-avatar" />
 
-            <h3>
-              Uday Prakash Gupta
-            </h3>
+            <h3>Uday Prakash Gupta</h3>
           </div>
-            <div class="info-about">
-              <p>I'm just a 15 yr old From India</p> <br>
-              <p>
-                Building intuitive and responsive user interfaces with HTML,
-                CSS, and JavaScript. 💻
-              </p>
-            
+          <div class="info-about">
+            <p>I'm just a 15 yr old From India</p>
+            <br />
+            <p>
+              Building intuitive and responsive user interfaces with HTML, CSS,
+              and JavaScript. 💻
+            </p>
           </div>
         </div>
       </div>
@@ -259,6 +257,84 @@
           <img src="apps-images/address-book.png" width="55px" />Contact <br />
           Manager
         </button>
+
+        <div class="pong-game-popup modal draggable" id="pongGameModal">
+          <div id="pongGameHeader" class="draggable-header">
+            <h3>
+              <img src="apps-images/photos (2).png" width="30px" /> Pong Game
+            </h3>
+            <button id="closePongGame">X</button>
+          </div>
+          <div class="pong-container">
+            <canvas id="pongCanvas" width="500" height="300"></canvas>
+          </div>
+        </div>
+
+        <button
+          id="openPongGame"
+          style="
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+          "
+        >
+          <img src="apps-images/photos (2).png" width="50xpx" />Pong Game
+        </button>
+
+        <div
+          class="photo-popup modal draggable"
+          id="photoAppModal"
+          style="display: none"
+        >
+          <div id="photoAppHeader" class="draggable-header">
+            <h3>
+              <img src="apps-images/photos (1).png" width="30px" /> Photo
+              Gallery
+            </h3>
+            <button id="closePhotoApp">X</button>
+          </div>
+          <div class="photo-app-content">
+            <div class="photo-upload">
+              <input
+                type="file"
+                id="uploadPhotoInput"
+                accept="image/*"
+                multiple
+              />
+              <button id="uploadPhotoBtn">Upload Photos</button>
+            </div>
+            <div class="photo-list" id="photoList"></div>
+          </div>
+        </div>
+
+        <div
+          class="photo-viewer-popup modal draggable"
+          id="photoViewerPopup"
+          style="display: none"
+        >
+          <div id="photoViewerHeader" class="draggable-header">
+            <h3>
+              <img src="apps-images/photos (1).png" width="30px" /> Photo Viewer
+            </h3>
+            <button id="closePhotoViewerPopup">X</button>
+          </div>
+          <div class="photo-viewer-content">
+            <img id="largePhoto" src="" alt="Large Preview" />
+          </div>
+        </div>
+
+        <button
+          id="openPhotoApp"
+          style="
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+          "
+        >
+          <img src="apps-images/photos (1).png" width="50px" />Photos
+        </button>
       </div>
     </div>
 
@@ -278,6 +354,7 @@
       </p>
       <div class="top-bar">
         <p id="timeos"></p>
+        <div id="activeApp">No app opened</div>
       </div>
     </div>
 
